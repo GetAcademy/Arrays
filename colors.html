@@ -8,23 +8,105 @@
 </head>
 
 <body>
-    <h1>Pause til 11:00</h1>
-
     <div id="app"></div>
     <script>
         // model
+        let colors = ['AliceBlue', 'AntiqueWhite', 'Aqua', 'Aquamarine', 'Azure', 'Beige', 'Bisque', 'Black', 'BlanchedAlmond', 'Blue', 'BlueViolet'];
+        let currentColorName = '';
+        let isEditingIndex = null;
 
         // view
         updateView();
         function updateView() {
             document.getElementById('app').innerHTML = /*HTML*/`
-
+                <h1>Farger</h1>
+                ${createAddHtml()}
+                ${createEditHtml()}
+                ${createColorsHtml()}
             `;
-            
+        }
+
+        function createAddHtml(){
+            if (isEditingIndex != null) return '';
+            return /*HTML*/`
+                <h4>Legg til ny farge </h4>
+                <input 
+                    type="text"
+                    oninput="currentColorName = this.value"
+                    value="${currentColorName}"                    
+                    /><br/>
+                <button onclick="addColor()">Legg til farge</button>                
+                <hr/>            
+            `;
+        }
+
+        function createEditHtml() {
+            if (isEditingIndex == null) return '';
+
+            return /*HTML*/`
+                <h4>Endre farge </h4>
+                <input 
+                    type="text"
+                    oninput="currentColorName = this.value"
+                    value="${currentColorName}"                    
+                    /><br/>
+                <button onclick="updateColor()">Endre farge</button>                                                
+                <hr/>                
+            `;
+        }
+
+        function createColorsHtml() {
+            let colorsHtml = '';
+            for (let i = 0; i < colors.length; i++) {
+                let color = colors[i];
+                colorsHtml += /*HTML*/`
+                    <div style="background-color: ${color}">
+                        ${color}
+                        <button onclick="deleteColor(${i})">x</button>
+                        <button onclick="editColor(${i})">Rediger</button>
+                    </div>
+                    `;
+            }
+            return colorsHtml;
         }
 
         // controller
+        function deleteColor(index) {
+            // let index = colors.indexOf(color);
+            colors.splice(index, 1);
+            updateView();
+        }
 
+        function addColor() {
+            colors.push(currentColorName);
+            currentColorName = '';
+            updateView();
+        }
+
+        function updateColor() {
+            colors[isEditingIndex] = currentColorName;
+            currentColorName = '';
+            isEditingIndex = null;
+            updateView();
+        }
+
+        function editColor(index) {
+            isEditingIndex = index;
+            currentColorName = colors[index];
+            updateView();
+        }
+
+        /*
+        for (let index = 0; index <= colors.length; index++) {
+            let color = colors[index];
+            console.log('A ' + index  + ' ' + color);
+            
+        }
+
+        for (color of colors) {
+            console.log('B ' + color);
+        }
+        */
     </script>
 </body>
 
