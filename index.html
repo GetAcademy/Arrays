@@ -8,8 +8,36 @@
 </head>
 
 <body>
-    <h1>Pause til 10:37</h1>
+    <h1>Pause til 11:00</h1>
     <script>
+        let names = ['Per', 'Kristoffer', 'Pål', 'Espen'];        
+
+        function searchForNamesStartingWith(array, letter) {
+            let selectedNames = [];
+            for (let name of array) {
+                if (name.startsWith(letter)) {
+                    selectedNames.push(name);
+                }
+            }
+            return selectedNames;
+        }
+
+        // function searchForNameOfLength(array, length) {
+        //     let selectedNames = [];
+        //     for (let name of array) {
+        //         if (name.length == length) {
+        //             selectedNames.push(name);
+        //         }
+        //     }
+        //     return selectedNames;
+        // }
+
+        // function doSomething(){
+        //     for(let arg of arguments){
+        //         console.log(arg);
+        //     }
+        // }
+
         // let names = ['Per', 'Kristoffer', 'Pål', 'Espen'];
 
         // let longestName = '';
